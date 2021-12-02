@@ -1,8 +1,11 @@
+def func1():
+    print("Func1")
 
 
-def print_hi(name):
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def func2():
+    print("Func2")
 
 
-if __name__ == '__main__':
-    print_hi('PyCharm')
+if __name__ == "__main__":
+    func1()
+    # func2()
