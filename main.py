@@ -1,3 +1,7 @@
+file = open('input03', "r+").readlines()
+data = [i[:-1] for i in file]
+
+
 def func1():
     print("Func1")
 
