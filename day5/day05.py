@@ -27,8 +27,11 @@ def func1():
         x_values = range(int(x1[i]), int(x2[i]))
         y_values = range(int(y1[i]), int(y2[i]))
 
-        direct_X = True if x_values >= 0 else False
-        direct_Y = True if y_values >= 0 else False
+        direct_X = True if x_values.start <= x_values.stop else False
+        direct_Y = True if y_values.start <= y_values.stop else False
+
+        for idx_x in x_values:
+            print(idx_x)
 
     print(max(x1), max(y1), max(x2), max(y2))
 
