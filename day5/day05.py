@@ -24,8 +24,8 @@ def func1():
 
     for i in range(len(x1)):
         # idea - https://www.kite.com/python/answers/how-to-create-a-list-of-numbers-between-two-values-in-python
-        x_values = x1[i] - x2[i]
-        y_values = y1[i] - y2[i]
+        x_values = range(int(x1[i]), int(x2[i]))
+        y_values = range(int(y1[i]), int(y2[i]))
 
         direct_X = True if x_values >= 0 else False
         direct_Y = True if y_values >= 0 else False
