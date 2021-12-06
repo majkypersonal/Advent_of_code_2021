@@ -1,5 +1,20 @@
+import numpy as np
+
 file = open('input05', "r+").readlines()
 data = [i[:-1].replace(" -> ", ",") for i in file]
+
+
+def point_grid(position, idx, start, stop, grid):
+    if start > stop:
+        start, stop = stop, start
+
+    for i in range(start, stop + 1):
+        if position:
+            grid[i][idx] += 1
+        else:
+            grid[idx][i] += 1
+
+    return grid
 
 
 def func1():
@@ -23,17 +38,18 @@ def func1():
     grid = [[0 for _ in range(1000)] for _ in range(1000)]
 
     for i in range(len(x1)):
-        # idea - https://www.kite.com/python/answers/how-to-create-a-list-of-numbers-between-two-values-in-python
-        x_values = range(int(x1[i]), int(x2[i]))
-        y_values = range(int(y1[i]), int(y2[i]))
+        x_1, x_2 = int(x1[i]), int(x2[i])
+        y_1, y_2 = int(y1[i]), int(y2[i])
 
-        direct_X = True if x_values.start <= x_values.stop else False
-        direct_Y = True if y_values.start <= y_values.stop else False
+        if x_1 == x_2:
+            grid = point_grid(True, x_1, y_1, y_2, grid)
+        elif y_1 == y_2:
+            grid = point_grid(False, y_1, x_1, x_2, grid)
+        else:
+            continue
 
-        for idx_x in x_values:
-            print(idx_x)
-
-    print(max(x1), max(y1), max(x2), max(y2))
+    np_array = np.array(grid)
+    print(np.count_nonzero(np_array == 2))  # 4822, 6283
 
 
 def func2():
@@ -42,4 +58,4 @@ def func2():
 
 if __name__ == "__main__":
     func1()
-    # func2()
+    # func2() # 18864
