@@ -1,5 +1,3 @@
-import numpy as np
-
 file = open('input05', "r+").readlines()
 data = [i[:-1].replace(" -> ", ",") for i in file]
 
