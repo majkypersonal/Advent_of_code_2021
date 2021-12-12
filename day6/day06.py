@@ -1,27 +1,28 @@
-import numpy as np
+import decimal
+import collections
 
-file = open('test.txt', "r+").readlines()
+file = open('input06', "r+").readlines()
 data = [i[:-1] for i in file]
 
 
-def func1():
+def func1_2():
     old_fish = list(map(int, data[0].split(",")))
-    number_of_zeroes = 0
 
-    for day in range(1, 81):
-        old_fish.extend([8] * number_of_zeroes)
+    fish = collections.Counter(old_fish)
 
-        old_fish = [i - 1 for i in old_fish]
-        number_of_zeroes = np.count_nonzero(np.array(old_fish) == 0)
-        old_fish = np.where(old_fish == 0, 6, old_fish)
+    for day in range(1, 257):
+        tmp = {8: fish[0] if fish[0] else 0, 7: fish[8] if fish[8] else 0, 6: fish[7] if fish[7] else 0,
+               5: fish[6] if fish[6] else 0, 4: fish[5] if fish[5] else 0, 3: fish[4] if fish[4] else 0,
+               2: fish[3] if fish[3] else 0, 1: fish[2] if fish[2] else 0, 0: fish[1] if fish[1] else 0}
 
-    print(len(old_fish))
+        tmp[6] += fish[0] if fish[0] else 0
 
+        fish = tmp.copy()
+        if day == 80:
+            print("Number of fishes day 80: {}".format(sum(fish.values())))
 
-def func2():
-    print("Func2")
+    print("Number of fishes day 256: {}".format(sum(fish.values())))
 
 
 if __name__ == "__main__":
-    func1()
-    # func2()
+    func1_2()
