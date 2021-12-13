@@ -13,36 +13,12 @@ def func1():
 
 
 def func2():
-    """
-                    cagedb: 0
-                    ab: 1
-        dddd        gcdfa: 2
-       e    a       fbcad: 3
-       e    a       eafb: 4
-        ffff        cdfbe: 5
-       g    b       cdfgeb: 6
-       g    b       dab: 7
-        cccc        acedgfb: 8
-                    cefabd: 9
+    all_values = 0
 
-    g - 186
-    f - 193
-    e - 197
-    d - 182
-    c - 179
-    b - 184
-    a - 174
-
-    """
-
-    # codes = [i.split(" | ")[1].split() for i in data]
-    # codes_values = [item for value in codes for item in value]
-
-    all = 0
     for line in data:
         result = ''
         signal, out = line.strip().split(" | ")
-        splitted = {length: set(sig) for sig in signal.split() if (length := len(sig)) in (2, 4)}
+        exact_numbers = {length: set(sig) for sig in signal.split() if (length := len(sig)) in (2, 4)}
 
         for value in out.split():
             length = len(value)
@@ -56,23 +32,23 @@ def func2():
                 result += '8'
             elif length == 5:
                 length = set(value)
-                if len(length & splitted[2]) == 2:
+                if len(length & exact_numbers[2]) == 2:
                     result += '3'
-                elif len(length & splitted[4]) == 2:
+                elif len(length & exact_numbers[4]) == 2:
                     result += '2'
                 else:
                     result += '5'
             else:
                 length = set(value)
-                if len(length & splitted[2]) == 1:
+                if len(length & exact_numbers[2]) == 1:
                     result += '6'
-                elif len(length & splitted[4]) == 4:
+                elif len(length & exact_numbers[4]) == 4:
                     result += '9'
                 else:
                     result += '0'
 
-        all += int(result)
-    print(all)
+        all_values += int(result)
+    print(all_values)
 
 
 if __name__ == "__main__":
