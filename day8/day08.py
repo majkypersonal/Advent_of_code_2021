@@ -24,18 +24,39 @@ def func2():
        g    b       dab: 7
         cccc        acedgfb: 8
                     cefabd: 9
+
+    g - 186
+    f - 193
+    e - 197
+    d - 182
+    c - 179
+    b - 184
+    a - 174
+
     """
 
-    codes = [i.split(" | ")[1].split() for i in data]
-    codes_values = [item for value in codes for item in value]
+    # codes = [i.split(" | ")[1].split() for i in data]
+    # codes_values = [item for value in codes for item in value]
 
+    codes = ["".join(i.split(" | ")).split() for i in data]
+    codes_values = [item for value in codes for item in value]
+    six_len = [value for value in codes_values if len(value) == 6]
+    five_len = [value for value in codes_values if len(value) == 5]
+
+    segments = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+    for value in five_len:
+        first = ["".join(val) for val in permutations(value)]
+        for val in first:
+            [print(six, val) for six in six_len if val in six]
+
+    #
+    # print([value for value in codes_values if value in first])
     valid_segments, numbers = {}, ['cagedb', 'ab', 'gcdfa', 'fbcad', 'eafb', 'cdfbe', 'cdfgeb', 'dab', 'acedgfb',
                                    'cefabd']
 
     for i in range(10):
         valid_segments[i] = ["".join(val) for val in permutations(numbers[i])]
 
-    counter = 0
     result = [1 if value in valid_segments else 0 for value in codes_values]
 
     print(sum(result))  # 941 255
