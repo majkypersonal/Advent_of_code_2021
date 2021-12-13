@@ -38,28 +38,41 @@ def func2():
     # codes = [i.split(" | ")[1].split() for i in data]
     # codes_values = [item for value in codes for item in value]
 
-    codes = ["".join(i.split(" | ")).split() for i in data]
-    codes_values = [item for value in codes for item in value]
-    six_len = [value for value in codes_values if len(value) == 6]
-    five_len = [value for value in codes_values if len(value) == 5]
+    all = 0
+    for line in data:
+        result = ''
+        signal, out = line.strip().split(" | ")
+        splitted = {length: set(sig) for sig in signal.split() if (length := len(sig)) in (2, 4)}
 
-    segments = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-    for value in five_len:
-        first = ["".join(val) for val in permutations(value)]
-        for val in first:
-            [print(six, val) for six in six_len if val in six]
+        for value in out.split():
+            length = len(value)
+            if length == 2:
+                result += '1'
+            elif length == 3:
+                result += '7'
+            elif length == 4:
+                result += '4'
+            elif length == 7:
+                result += '8'
+            elif length == 5:
+                length = set(value)
+                if len(length & splitted[2]) == 2:
+                    result += '3'
+                elif len(length & splitted[4]) == 2:
+                    result += '2'
+                else:
+                    result += '5'
+            else:
+                length = set(value)
+                if len(length & splitted[2]) == 1:
+                    result += '6'
+                elif len(length & splitted[4]) == 4:
+                    result += '9'
+                else:
+                    result += '0'
 
-    #
-    # print([value for value in codes_values if value in first])
-    valid_segments, numbers = {}, ['cagedb', 'ab', 'gcdfa', 'fbcad', 'eafb', 'cdfbe', 'cdfgeb', 'dab', 'acedgfb',
-                                   'cefabd']
-
-    for i in range(10):
-        valid_segments[i] = ["".join(val) for val in permutations(numbers[i])]
-
-    result = [1 if value in valid_segments else 0 for value in codes_values]
-
-    print(sum(result))  # 941 255
+        all += int(result)
+    print(all)
 
 
 if __name__ == "__main__":
